@@ -22,12 +22,14 @@ const createLead = async (name, email, mobile) => {
         name,
         email,
         mobile,
-        campaignCode: "a085g00000EM0jkAAD",
-        campaignName: "Tattav Generic Google Discovery"
+        campaign_code: "a085g00000EM0jkAAD",
+        campaign_name: "Tattav Generic Google Discovery",
+        project_id: "a015g00000tXR7YAAW",
+        form_id: "a015g00000tXR7YAAW"
     }
     if(requestData){
         try {
-            const response = await fetch('https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZlMDYzNjA0MzQ1MjY4NTUzNDUxMzQi_pc', {
+            const response = await fetch('https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZlMDYzNjA0MzQ1MjY4NTUzMzUxMzMi_pc', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
