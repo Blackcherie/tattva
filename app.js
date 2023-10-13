@@ -83,8 +83,8 @@ const createLead = async (name, email, mobile) => {
 
 }
 
-const sendDataToGoogleSheet = async (name, email, mobile) => {
-    if(!validateMobileNumber(mobile)){
+const sendDataToGoogleSheet = async (name, email, phone) => {
+    if(!validateMobileNumber(phone)){
         alert("Mobile number is not correct")
         return false
     }
@@ -94,23 +94,28 @@ const sendDataToGoogleSheet = async (name, email, mobile) => {
     }
 
     const requestData = {
-        name,
-        email,
-        mobile,
-        campaign_code: "a085g00000EM0jkAAD",
-        campaign_name: "Tattav Generic Google Discovery",
-        project_id: "a015g00000tXR7YAAW",
-        form_id: "a015g00000tXR7YAAW"
+        name: name,
+        email: email,
+        phone: phone,
     }
+
+
     if(requestData){
         try {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbz3HuqVyPShmyxNVDGDP4_B5HqCvZFtUpE64_iKLzJv95WiZe-k2d9avHmOhWd4GMZr/exec', {
+            const response = await fetch('https://sheetdb.io/api/v1/5wf5m45cm7ad6', {
                 method: 'POST',
-                body: JSON.stringify(requestData),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: [
+                        requestData
+                    ]
+                })
             });
             const data = await response.json();
-            console.log(data)
-            if(data.result === 'success'){
+            if(data?.created === 1){
                 return true
             }
             else{
