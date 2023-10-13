@@ -17,7 +17,39 @@ popupBtns.forEach(btn => {
     })
 })
 
+const validateMobileNumber = (number) => {
+    if (typeof number !== 'string') {
+        return false;
+    }
+
+    const cleanedNumber = number.replace(/\D/g, '');
+
+    if (cleanedNumber.length === 10) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+const validateName = (name) => {
+    if (typeof name !== 'string') {
+        return false;
+    }
+
+    const regex = /^[A-Za-z]+$/;
+    return regex.test(name);
+}
+
+
 const createLead = async (name, email, mobile) => {
+    if(!validateMobileNumber(mobile)){
+        alert("Mobile number is not correct")
+        return
+    }
+    if(!validateName(name)){
+        alert("Name is not valid")
+        return
+    }
     const requestData = {
         name,
         email,
@@ -38,7 +70,8 @@ const createLead = async (name, email, mobile) => {
             });
             const data = await response.json();
             if(data.status === 'success'){
-                alert("Success")
+                window.location.href = "./success.html"
+                // alert("Success")
             }
             else{
                 alert("Something went wrong!")
@@ -87,3 +120,4 @@ contactFormBtn.addEventListener("click", async (e) => {
     
     createLead(name, email, mobile)
 })
+
