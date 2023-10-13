@@ -44,11 +44,11 @@ const validateName = (name) => {
 const createLead = async (name, email, mobile) => {
     if(!validateMobileNumber(mobile)){
         alert("Mobile number is not correct")
-        return
+        return false
     }
     if(!validateName(name)){
         alert("Name is not valid")
-        return
+        return false
     }
     const requestData = {
         name,
@@ -70,18 +70,56 @@ const createLead = async (name, email, mobile) => {
             });
             const data = await response.json();
             if(data.status === 'success'){
-                window.location.href = "./success.html"
-                // alert("Success")
+                return true
             }
             else{
-                alert("Something went wrong!")
+                return false
             }
             
         } catch (error) {
-            alert(error)
+            return false
         }
     }
 
+}
+
+const sendDataToGoogleSheet = async (name, email, mobile) => {
+    if(!validateMobileNumber(mobile)){
+        alert("Mobile number is not correct")
+        return false
+    }
+    if(!validateName(name)){
+        alert("Name is not valid")
+        return false
+    }
+
+    const requestData = {
+        name,
+        email,
+        mobile,
+        campaign_code: "a085g00000EM0jkAAD",
+        campaign_name: "Tattav Generic Google Discovery",
+        project_id: "a015g00000tXR7YAAW",
+        form_id: "a015g00000tXR7YAAW"
+    }
+    if(requestData){
+        try {
+            const response = await fetch('https://script.google.com/macros/s/AKfycbwuUwom2_2YP6X_Dt2iYeoLLRsNxUjuYqOPbunICHPvKfFrdU4gRrjYdebi4rOyv0GS/exec', {
+                method: 'POST',
+                body: JSON.stringify(requestData),
+            });
+            const data = await response.json();
+            console.log(data)
+            if(data.result === 'success'){
+                return true
+            }
+            else{
+                return false
+            }
+        } catch (error) {
+            return false
+        }
+    }
 }
 
 
@@ -94,7 +132,12 @@ popupFormBtn.addEventListener("click", async (e) => {
     const email = popupForm.querySelector('input[name=email]').value
     const mobile = popupForm.querySelector('input[name=phone]').value
     
-    createLead(name, email, mobile)
+    const createLeadStatus = await createLead(name, email, mobile)
+    const sendDataToGoogleSheetStatus = await sendDataToGoogleSheet(name, email, mobile)
+
+    if(createLeadStatus && sendDataToGoogleSheetStatus){
+        window.location.replace('./thankyou.html')
+    }
 })
 
 const footerFormBtn = document.getElementById("footer_form_btn")
@@ -106,7 +149,12 @@ footerFormBtn.addEventListener("click", async (e) => {
     const email = footerForm.querySelector('input[name=email]').value
     const mobile = footerForm.querySelector('input[name=phone]').value
     
-    createLead(name, email, mobile)
+    const createLeadStatus = await createLead(name, email, mobile)
+    const sendDataToGoogleSheetStatus = await sendDataToGoogleSheet(name, email, mobile)
+
+    if(createLeadStatus && sendDataToGoogleSheetStatus){
+        window.location.replace('./thankyou.html')
+    }
 })
 
 const contactFormBtn = document.getElementById("contact-form-btn")
@@ -118,6 +166,11 @@ contactFormBtn.addEventListener("click", async (e) => {
     const email = contactForm.querySelector('input[name=email]').value
     const mobile = contactForm.querySelector('input[name=phone]').value
     
-    createLead(name, email, mobile)
+    const createLeadStatus = await createLead(name, email, mobile)
+    const sendDataToGoogleSheetStatus = await sendDataToGoogleSheet(name, email, mobile)
+
+    if(createLeadStatus && sendDataToGoogleSheetStatus){
+        window.location.replace('./thankyou.html')
+    }
 })
 
