@@ -104,7 +104,7 @@ const sendDataToGoogleSheet = async (name, email, mobile) => {
     }
     if(requestData){
         try {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbwuUwom2_2YP6X_Dt2iYeoLLRsNxUjuYqOPbunICHPvKfFrdU4gRrjYdebi4rOyv0GS/exec', {
+            const response = await fetch('https://script.google.com/macros/s/AKfycbz3HuqVyPShmyxNVDGDP4_B5HqCvZFtUpE64_iKLzJv95WiZe-k2d9avHmOhWd4GMZr/exec', {
                 method: 'POST',
                 body: JSON.stringify(requestData),
             });
