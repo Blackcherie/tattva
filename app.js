@@ -85,7 +85,7 @@ const createLead = async (name, email, mobile) => {
 
 const sendDataToGoogleSheet = async (name, email, phone) => {
     if(!validateMobileNumber(phone)){
-        alert("Mobile number is not correct")
+        alert("Please enter valid 10 digit number")
         return false
     }
     if(!validateName(name)){
