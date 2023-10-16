@@ -7,7 +7,6 @@ popupClose.addEventListener('click', () => {
 
 const popupBtns = document.querySelectorAll('.popup-btn')
 
-console.log(popupBtns)
 
 
 popupBtns.forEach(btn => {
@@ -40,6 +39,41 @@ const validateName = (name) => {
     return regex.test(name);
 }
 
+const getUTMTerm = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    // Retrieve the value of utm_term
+    const utmTermValue = queryParams.get('utm_term');
+    return utmTermValue;
+}
+
+const getCampaign = () => {
+    const utmTerm = getUTMTerm()
+    let campaign = {
+        campaign_name: "Tattav Generic Google Discovery",
+        campaign_code: "a085g00000EM0jkAAD",
+        url: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZlMDYzNjA0MzQ1MjY4NTUzNDUxMzQi_pc",
+        form_id: "12345"
+    }
+    switch (utmTerm) {
+        case "brand":
+            campaign.campaign_name = "Tattav Brand google Search"
+            campaign.campaign_code = "a085g00000EM0jfAAD"
+            campaign.url = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZlMDYzNjA0MzQ1MjY4NTUzMzUxMzMi_pc"
+            campaign.form_id = "67890"
+            return campaign
+        case "display":
+            campaign.campaign_name = "Tattav google-search"
+            campaign.campaign_code = "a085g00000ELzxKAAT"
+            campaign.url = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZlMDYzNjA0MzQ1MjY4NTUzMzUxMzYi_pc"
+            campaign.form_id = "13579"
+            return campaign
+        default:
+            return campaign
+    }
+}
+
+
 
 const createLead = async (name, email, mobile) => {
     if(!validateMobileNumber(mobile)){
@@ -50,18 +84,20 @@ const createLead = async (name, email, mobile) => {
         alert("Name is not valid")
         return false
     }
+
+    const campaign = getCampaign()
     const requestData = {
         name,
         email,
         mobile,
-        campaign_code: "a085g00000EM0jfAAD",
-        campaign_name: "Tattav Generic Google Discovery",
+        campaign_code: campaign.campaign_code,
+        campaign_name: campaign.campaign_name,
         project_id: "a015g00000tXR7YAAW",
-        form_id: "12345"
+        form_id: campaign.form_id
     }
     if(requestData){
         try {
-            const response = await fetch('https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZlMDYzNjA0MzQ1MjY4NTUzMzUxMzMi_pc', {
+            const response = await fetch(campaign.url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
