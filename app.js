@@ -54,10 +54,10 @@ const createLead = async (name, email, mobile) => {
         name,
         email,
         mobile,
-        campaign_code: "a085g00000EM0jkAAD",
+        campaign_code: "a085g00000EM0jfAAD",
         campaign_name: "Tattav Generic Google Discovery",
         project_id: "a015g00000tXR7YAAW",
-        form_id: "a015g00000tXR7YAAW"
+        form_id: "12345"
     }
     if(requestData){
         try {
