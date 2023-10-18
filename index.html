@@ -26,6 +26,17 @@
       font-family: 'Montserrat', sans-serif;
     }
 
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
     #footer_container {
       display: flex;
       justify-content: center;
@@ -762,7 +773,7 @@
                 <div>
                   <label class="sr-only" for="phone">Phone</label>
                   <input name="phone" class="w-full rounded-lg border border-gray-200 p-3 text-sm" placeholder="Phone Number"
-                    type="number" id="phone" required="true" />
+                    type="number" id="phone" required="true" maxlength="10" />
                 </div>
               </div>
 
@@ -854,7 +865,7 @@
           <input name="email" class="rounded-lg border border-gray-200 p-3 text-sm" placeholder="Email address" type="email" name="email"
             id="email" required="true" />
           <input name="phone" class="rounded-lg border border-gray-200 p-3 text-sm" placeholder="Phone Number" type="number" id="phone" name="phone"
-            required="true" />
+            required="true" maxlength="10" />
           <button id="footer_form_btn" type="submit"
             class="submit inline-block w-full rounded-md bg-white px-5 py-3 font-medium text-amber-900 sm:w-auto">
             Send Enquiry
@@ -886,7 +897,7 @@
             <div>
               <label class="sr-only" for="phone">Phone</label>
               <input name="phone" class="w-full rounded-lg border border-gray-200 p-3 text-sm" placeholder="Phone Number" type="number"
-                id="phone" required="true" />
+                id="phone" required="true" maxlength="10" />
             </div>
 
           </div>
