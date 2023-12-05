@@ -962,6 +962,27 @@
     });
   </script>
 
+  <script>
+    window.addEventListener('load', function() {
+      document.querySelectorAll('[href*="wa.me"]').forEach(function(a) {
+        a.onclick = function() {
+          gtag('event', 'conversion', {
+            'send_to': 'AW-11363426693/ITc_CIq44fwYEIXDwKoq'
+          });
+        };
+      })
+      document.querySelectorAll('[href*="tel:"]').forEach(function(a) {
+        a.onclick = function() {
+          gtag('event', 'conversion', {
+            'send_to': 'AW-11363426693/TUypCNaX3vwYEIXDwKoq'
+          });
+        };
+      })
+
+    })
+
+  </script>
+
   <script src="./app.js"></script>
 </body>
 
